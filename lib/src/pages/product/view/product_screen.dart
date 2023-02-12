@@ -1,10 +1,16 @@
 import 'package:beauty_care/src/config/custom_colors.dart';
 import 'package:beauty_care/src/models/item_model.dart';
+import 'package:beauty_care/src/models/schedule_model.dart';
+import 'package:beauty_care/src/pages/base/controller/navigation_controller.dart';
+import 'package:beauty_care/src/pages/product/view/components/schedule_tile.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
-import '../../services/utils_services.dart';
+import '../../../services/utils_services.dart';
 
-class ProductScreen extends StatelessWidget {
+class ProductScreen extends StatefulWidget {
+
 
   ProductScreen({
     Key? key,
@@ -12,14 +18,23 @@ class ProductScreen extends StatelessWidget {
   }) : super(key: key);
 
   final ItemModel item;
+
+  @override
+  State<ProductScreen> createState() => _ProductScreenState();
+}
+
+class _ProductScreenState extends State<ProductScreen> {
+
   final UtilsServices utilsServices = UtilsServices();
+
+  final navigationController = Get.find<NavigationController>();
 
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
-      
+
       body: Stack(
 
         children: [
@@ -30,8 +45,8 @@ class ProductScreen extends StatelessWidget {
 
               Expanded(child:
                 Hero(
-                  tag: item.imgUrl,
-                    child: Image.network(item.imgUrl),
+                  tag: widget.item.imgUrl,
+                    child: Image.network(widget.item.imgUrl),
                 ),
               ),
 
@@ -62,7 +77,7 @@ class ProductScreen extends StatelessWidget {
 
                       //TITULO
                       Text(
-                        item.title,
+                        widget.item.title,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -73,7 +88,7 @@ class ProductScreen extends StatelessWidget {
 
                       //SALAO
                       Text(
-                        item.salonName,
+                        widget.item.salonName,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -86,7 +101,7 @@ class ProductScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 10),
                         child: Text(
-                          utilsServices.priceToCurrency( item.price ),
+                          utilsServices.priceToCurrency( widget.item.price ),
                           style: TextStyle(
                             fontSize: 23,
                             fontWeight: FontWeight.bold,
@@ -155,7 +170,7 @@ class ProductScreen extends StatelessWidget {
                                 ),
 
                                 Text(
-                                  item.description * 3,
+                                  widget.item.description * 3,
                                   style: const TextStyle(
                                     height: 1.5,
                                   ),
@@ -174,6 +189,11 @@ class ProductScreen extends StatelessWidget {
                       //BOTAO
                       ElevatedButton(
                           onPressed: (){
+
+                            //fechar a tela
+                            Get.back();
+                            //abrir o carrinho
+                            navigationController.navigatePageView( NavigationTabs.cart );
 
                           },
                           child: Text('Agendar'),

@@ -1,8 +1,9 @@
 import 'package:beauty_care/src/config/custom_colors.dart';
-import 'package:beauty_care/src/pages/product/product_screen.dart';
+import 'package:beauty_care/src/pages/product/view/product_screen.dart';
 import 'package:beauty_care/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 import '../../../../models/item_model.dart';
+import '../../../../models/schedule_model.dart';
 
 
 
@@ -11,6 +12,7 @@ class ItemTile extends StatelessWidget {
   //INSTANCIAMOS A CLASSE ITEM MODEL ONDE TERÁ OS PRODUTOS FICTICIOS
   final ItemModel item;
   final UtilsServices utilsServices = UtilsServices();
+
 
   ItemTile({
     Key? key,
@@ -34,7 +36,7 @@ class ItemTile extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(builder: (c) {
-                    return ProductScreen(item: item,);
+                    return ProductScreen(item: item);
                   }),
                 );
               },

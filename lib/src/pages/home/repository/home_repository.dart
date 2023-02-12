@@ -2,6 +2,7 @@
 import 'package:beauty_care/src/constants/endpoints.dart';
 import 'package:beauty_care/src/models/category_model.dart';
 import 'package:beauty_care/src/models/item_model.dart';
+import 'package:beauty_care/src/models/schedule_model.dart';
 import 'package:beauty_care/src/pages/home/result/home_result.dart';
 import 'package:beauty_care/src/services/http_manager.dart';
 
@@ -48,7 +49,31 @@ class HomeRepository {
     }else{
       return HomeResult.error('Ocorreu um erro inesperado ao recuperar os itens');
     }
-
   }
+
+
+  //metodo para recuperar horarios
+  Future<HomeResult<ScheduleModel>> getAllSchedules(Map<String, dynamic> body) async {
+
+    final result = await _httpManager.restRequest(
+      url: Endpoints.getAllSchedules,
+      method: HttpMethods.post,
+      body: body,
+    );
+
+    //se result for diferente de nulo quer dizer que temos os produtos
+    if(result['result'] != null){
+
+      //no data teremos a nossa lista com todos os produtos vindos do backend
+      List<ScheduleModel> data = List<Map<String, dynamic>>.from(result['result']).map( ScheduleModel.fromJson ).toList();
+
+      return HomeResult<ScheduleModel>.success(data);
+
+    }else{
+      return HomeResult.error('Ocorreu um erro inesperado ao recuperar os itens');
+    }
+  }
+
+
 
 }

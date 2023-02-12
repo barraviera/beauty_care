@@ -1,5 +1,7 @@
 
+import 'package:beauty_care/src/config/app_data.dart';
 import 'package:beauty_care/src/models/item_model.dart';
+import 'package:beauty_care/src/models/schedule_model.dart';
 import 'package:beauty_care/src/pages/home/repository/home_repository.dart';
 import 'package:beauty_care/src/pages/home/result/home_result.dart';
 import 'package:beauty_care/src/services/utils_services.dart';
@@ -80,6 +82,7 @@ class HomeController extends GetxController {
     if(currentCategory!.items.isNotEmpty) return;
 
     getAllProducts();
+
   }
 
 
@@ -224,6 +227,27 @@ class HomeController extends GetxController {
       },
     );
 
+  }
+
+
+  Future<void> getAllSchedules({ required String productId }) async{
+
+    Map<String, dynamic> body = {
+      'productId': productId,
+    };
+
+    HomeResult<ScheduleModel> result = await homeRepository.getAllSchedules(body);
+
+    result.when(
+      success: (data){
+
+        print( data );
+
+      },
+      error: (message){
+        utilsServices.showToast(message: message, isError: true);
+      },
+    );
   }
 
 

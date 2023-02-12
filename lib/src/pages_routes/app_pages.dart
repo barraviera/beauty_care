@@ -3,6 +3,7 @@ import 'package:beauty_care/src/pages/base/base_screen.dart';
 import 'package:get/get.dart';
 
 import '../pages/auth/view/sign_up_screen.dart';
+import '../pages/base/binding/navigation_binding.dart';
 import '../pages/home/binding/home_binding.dart';
 
 abstract class AppPages{
@@ -26,6 +27,7 @@ abstract class AppPages{
       name: PagesRoutes.baseRoute,
       bindings: [
         HomeBinding(),
+        NavigationBinding(),
       ],
     ),
 

@@ -8,5 +8,6 @@ abstract class Endpoints{
   static const String resetPassword = '$baseUrl/reset-password'; //resetar senha
   static const String getAllCategories = '$baseUrl/get-category-list'; //recuperar todas as categorias
   static const String getAllProducts = '$baseUrl/get-product-list'; //recuperar todos os produtos
+  static const String getAllSchedules = '$baseUrl/get-schedule-list'; //recuperar os horarios
 
 }
