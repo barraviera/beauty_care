@@ -3,9 +3,6 @@ import 'package:beauty_care/src/pages/product/view/product_screen.dart';
 import 'package:beauty_care/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 import '../../../../models/item_model.dart';
-import '../../../../models/schedule_model.dart';
-
-
 
 class ItemTile extends StatelessWidget {
 

@@ -1,13 +1,13 @@
 import 'package:beauty_care/src/config/custom_colors.dart';
 import 'package:beauty_care/src/models/item_model.dart';
-import 'package:beauty_care/src/models/schedule_model.dart';
 import 'package:beauty_care/src/pages/base/controller/navigation_controller.dart';
-import 'package:beauty_care/src/pages/product/view/components/schedule_tile.dart';
+import 'package:beauty_care/src/pages/cart/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../../services/utils_services.dart';
+import '../../cart/controller/cart_controller.dart';
 
 class ProductScreen extends StatefulWidget {
 
@@ -26,8 +26,8 @@ class ProductScreen extends StatefulWidget {
 class _ProductScreenState extends State<ProductScreen> {
 
   final UtilsServices utilsServices = UtilsServices();
-
   final navigationController = Get.find<NavigationController>();
+  final cartController = Get.find<CartController>();
 
   @override
   Widget build(BuildContext context) {
@@ -192,11 +192,14 @@ class _ProductScreenState extends State<ProductScreen> {
 
                             //fechar a tela
                             Get.back();
+
+                            cartController.addItemToCart(item: widget.item);
+
                             //abrir o carrinho
                             navigationController.navigatePageView( NavigationTabs.cart );
 
                           },
-                          child: Text('Agendar'),
+                          child: Text('Adicionar ao carrinho'),
                       ),
 
                     ],

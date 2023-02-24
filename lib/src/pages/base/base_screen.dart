@@ -1,11 +1,11 @@
 import 'package:beauty_care/src/pages/base/controller/navigation_controller.dart';
-import 'package:beauty_care/src/pages/calendar/calendar_tab.dart';
 import 'package:beauty_care/src/pages/profile/profile_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
 import '../../config/custom_colors.dart';
+import '../cart/cart_tab.dart';
 import '../home/view/home_tab.dart';
 
 class BaseScreen extends StatefulWidget {
@@ -62,7 +62,7 @@ class _BaseScreenState extends State<BaseScreen> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_month_outlined),
-              label: 'Agenda',
+              label: 'Carrinho',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.local_mall_outlined),
@@ -86,7 +86,7 @@ class _BaseScreenState extends State<BaseScreen> {
         children: [
 
           const HomeTab(),
-          const CalendarTab(),
+          const CartTab(),
           Container(color: Colors.blue,),
           const ProfileTab(),
 

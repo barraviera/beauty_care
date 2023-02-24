@@ -1,7 +1,7 @@
 
 import 'package:beauty_care/src/models/item_model.dart';
 
-import '../models/calendar_item_model.dart';
+import '../models/cart_item_model.dart';
 
 ItemModel unha = ItemModel(
     title: 'Pacote de Unhas',
@@ -87,11 +87,11 @@ List<String> categories = [
 ];
 
 //LISTA DE ITENS DA MINHA AGENDA
-List<CalendarItemModel> calendarItems = [
+List<CartItemModel> cartItems = [
 
-    CalendarItemModel(item: unha),
-    CalendarItemModel(item: cabelo),
-    CalendarItemModel(item: maquiagem),
-    CalendarItemModel(item: depilacao),
+    CartItemModel(item: unha, quantity: 10, id: 'dsfdsfsdfds'),
+    CartItemModel(item: cabelo, quantity: 10, id: 'dsfdsfsdfds'),
+    CartItemModel(item: maquiagem, quantity: 10, id: 'dsfdsfsdfds'),
+    CartItemModel(item: depilacao, quantity: 10, id: 'dsfdsfsdfds'),
 
 ];

@@ -1,21 +1,19 @@
-import 'package:beauty_care/src/models/calendar_item_model.dart';
+import 'package:beauty_care/src/models/cart_item_model.dart';
 import 'package:beauty_care/src/pages/common_widgets/quantity_widget.dart';
 import 'package:beauty_care/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/custom_colors.dart';
 
-class CalendarTile extends StatelessWidget {
+class CartTile extends StatelessWidget {
 
-  final CalendarItemModel calendarItem;
+  final CartItemModel cartItem;
   final UtilsServices utilsServices = UtilsServices();
-  final Function(CalendarItemModel) remove;
 
 
-  CalendarTile({
+  CartTile({
     Key? key,
-    required this.calendarItem,
-    required this.remove,
+    required this.cartItem,
   }) : super(key: key);
 
   @override
@@ -69,15 +67,15 @@ class CalendarTile extends StatelessWidget {
       child: ListTile(
 
         //IMAGEM
-        leading: Image.asset(
-          calendarItem.item.imgUrl,
+        leading: Image.network(
+          cartItem.item.imgUrl,
           height: 60,
           width: 60,
         ),
 
         //TITULO
         title: Text(
-          calendarItem.item.title,
+          cartItem.item.title,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
           ),
@@ -85,7 +83,7 @@ class CalendarTile extends StatelessWidget {
 
         //PREÇO
         subtitle: Text(
-          utilsServices.priceToCurrency( calendarItem.item.price ),
+          utilsServices.priceToCurrency( cartItem.item.price ),
           style: TextStyle(
             color: CustomColors.customSwatchColor,
             fontWeight: FontWeight.bold,
@@ -99,7 +97,7 @@ class CalendarTile extends StatelessWidget {
           onPressed: () async{
             bool? result = await showRemoveConfirmation();
             if(result == true){
-              remove(calendarItem);
+              //remove(cartItem);
             }
 
           },

@@ -1,5 +1,6 @@
 import 'package:beauty_care/src/pages/auth/view/sign_in_screen.dart';
 import 'package:beauty_care/src/pages/base/base_screen.dart';
+import 'package:beauty_care/src/pages/cart/binding/cart_binding.dart';
 import 'package:get/get.dart';
 
 import '../pages/auth/view/sign_up_screen.dart';
@@ -28,6 +29,7 @@ abstract class AppPages{
       bindings: [
         HomeBinding(),
         NavigationBinding(),
+        CartBinding(),
       ],
     ),
 
