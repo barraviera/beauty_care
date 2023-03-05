@@ -62,7 +62,7 @@ class _BaseScreenState extends State<BaseScreen> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.calendar_month_outlined),
-              label: 'Carrinho',
+              label: 'Agenda',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.local_mall_outlined),

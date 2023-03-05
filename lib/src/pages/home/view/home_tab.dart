@@ -8,6 +8,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:beauty_care/src/config/app_data.dart' as appData;
 
 import '../../common_widgets/custom_shimmer.dart';
+import '../../product/controller/product_controller.dart';
 import 'components/category_tile.dart';
 import 'components/item_tile.dart';
 
@@ -18,6 +19,8 @@ class HomeTab extends StatefulWidget {
     Key? key,
 
   }) : super(key: key);
+
+
 
   @override
   State<HomeTab> createState() => _HomeTabState();
@@ -34,6 +37,7 @@ class _HomeTabState extends State<HomeTab> {
 
     //criamos um controlador para o campo de pesquisa
     final searchController = TextEditingController();
+
 
     return Scaffold(
 

@@ -1,13 +1,14 @@
 import 'package:beauty_care/src/config/custom_colors.dart';
 import 'package:beauty_care/src/models/item_model.dart';
+import 'package:beauty_care/src/models/schedule_model.dart';
 import 'package:beauty_care/src/pages/base/controller/navigation_controller.dart';
 import 'package:beauty_care/src/pages/cart/controller/cart_controller.dart';
+import 'package:beauty_care/src/pages/product/components/dropdown_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-
 import '../../../services/utils_services.dart';
-import '../../cart/controller/cart_controller.dart';
+import '../controller/product_controller.dart';
 
 class ProductScreen extends StatefulWidget {
 
@@ -28,9 +29,25 @@ class _ProductScreenState extends State<ProductScreen> {
   final UtilsServices utilsServices = UtilsServices();
   final navigationController = Get.find<NavigationController>();
   final cartController = Get.find<CartController>();
+  final productController = Get.find<ProductController>();
+
+
+  //Usado no select de datas
+  DateTime? valorEscolhido;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    print(widget.item.id);
+    productController.getSchedule( productId: widget.item.id );
+  }
+
 
   @override
   Widget build(BuildContext context) {
+
 
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
@@ -113,35 +130,42 @@ class _ProductScreenState extends State<ProductScreen> {
 
 
 
-                      //DESCRICAO
-                      Expanded(
 
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 10,),
-                          child: SingleChildScrollView(
 
-                            child: Column(
-                              //PARA ALINHAR OS TEXTOS A ESQUERDA
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                      //HORARIOS
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10,),
+                        child: Column(
+                          //PARA ALINHAR OS TEXTOS A ESQUERDA
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
 
-                              children: const [
+                          children: [
 
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: Text(
-                                    'Horários disponíveis:',
-                                    style: TextStyle(
-                                      height: 1.8,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 10),
+                              child: Text(
+                                'Horários disponíveis:',
+                                style: TextStyle(
+                                  height: 1.8,
+                                  fontWeight: FontWeight.bold,
                                 ),
-
-
-
-                              ],
+                              ),
                             ),
-                          ),
+
+
+
+                            DropdownSchedule(),
+
+
+                            const Text(
+                              'Descrição:',
+                              style: TextStyle(
+                                height: 1.8,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                          ],
                         ),
                       ),
 
@@ -157,17 +181,6 @@ class _ProductScreenState extends State<ProductScreen> {
                               crossAxisAlignment: CrossAxisAlignment.stretch,
 
                               children: [
-
-                                const Padding(
-                                  padding: EdgeInsets.only(bottom: 10),
-                                  child: Text(
-                                    'Descrição:',
-                                    style: TextStyle(
-                                      height: 1.8,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
 
                                 Text(
                                   widget.item.description * 3,
@@ -199,7 +212,7 @@ class _ProductScreenState extends State<ProductScreen> {
                             navigationController.navigatePageView( NavigationTabs.cart );
 
                           },
-                          child: Text('Adicionar ao carrinho'),
+                          child: const Text('Adicionar na agenda'),
                       ),
 
                     ],
@@ -221,9 +234,11 @@ class _ProductScreenState extends State<ProductScreen> {
             child: SafeArea(
               child: IconButton(
                   onPressed: (){
+
                     Navigator.of(context).pop();
+
                   },
-                  icon: Icon(Icons.arrow_back_ios),
+                  icon: const Icon(Icons.arrow_back_ios),
               ),
             ),
           ),

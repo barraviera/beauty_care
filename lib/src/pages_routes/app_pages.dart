@@ -2,10 +2,10 @@ import 'package:beauty_care/src/pages/auth/view/sign_in_screen.dart';
 import 'package:beauty_care/src/pages/base/base_screen.dart';
 import 'package:beauty_care/src/pages/cart/binding/cart_binding.dart';
 import 'package:get/get.dart';
-
 import '../pages/auth/view/sign_up_screen.dart';
 import '../pages/base/binding/navigation_binding.dart';
 import '../pages/home/binding/home_binding.dart';
+
 
 abstract class AppPages{
 
@@ -30,8 +30,11 @@ abstract class AppPages{
         HomeBinding(),
         NavigationBinding(),
         CartBinding(),
+        //ProductBinding(), nao usa mais
       ],
     ),
+
+
 
   ];
 
@@ -42,5 +45,6 @@ abstract class PagesRoutes{
   static const String signInRoute = '/signin';
   static const String signUpRoute = '/signup';
   static const String baseRoute = '/';
+
 
 }
