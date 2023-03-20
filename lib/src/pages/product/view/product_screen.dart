@@ -1,9 +1,10 @@
+import 'dart:io';
+
 import 'package:beauty_care/src/config/custom_colors.dart';
 import 'package:beauty_care/src/models/item_model.dart';
 import 'package:beauty_care/src/models/schedule_model.dart';
 import 'package:beauty_care/src/pages/base/controller/navigation_controller.dart';
 import 'package:beauty_care/src/pages/cart/controller/cart_controller.dart';
-import 'package:beauty_care/src/pages/product/components/dropdown_schedule.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -20,6 +21,8 @@ class ProductScreen extends StatefulWidget {
 
   final ItemModel item;
 
+
+
   @override
   State<ProductScreen> createState() => _ProductScreenState();
 }
@@ -31,23 +34,21 @@ class _ProductScreenState extends State<ProductScreen> {
   final cartController = Get.find<CartController>();
   final productController = Get.find<ProductController>();
 
-
-  //Usado no select de datas
   DateTime? valorEscolhido;
+  //String? valorEscolhido;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
 
-    print(widget.item.id);
     productController.getSchedule( productId: widget.item.id );
+
   }
 
 
   @override
   Widget build(BuildContext context) {
-
 
     return Scaffold(
       backgroundColor: Colors.white.withAlpha(230),
@@ -152,9 +153,114 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                             ),
 
+                            //DROPDOWN HORARIOS
+                            /*
+                            GetBuilder<ProductController>(
+                              builder: (controller){
+
+                                return
+
+                                DropdownButton<DateTime>(
+
+                                  value: (valorEscolhido == null) ? controller.allSchedule.first.date : valorEscolhido,
+
+                                    items: controller.allSchedule.map((e) {
+
+                                    //Lista os horários
+                                    return DropdownMenuItem<DateTime>(
+
+                                      value: e.date,
+                                      child: Text( utilsServices.formatDateTime( e.date )),
+
+                                    );
+
+                                  }).toList(),
+
+                                  onChanged: (escolha) => setState((){
+
+                                    valorEscolhido = escolha;
+
+                                    print( escolha );
+
+                                  } ),
+                                );
 
 
-                            DropdownSchedule(),
+                              }
+                            ),
+
+                             */
+
+                            //DROPDOWN HORARIOS
+                            /*
+                            GetBuilder<ProductController>(
+                                builder: (controller){
+
+                                  return
+
+                                    DropdownButton<String>(
+                                      hint: const Text('Escolha uma opção'),
+                                      value: valorEscolhido,
+
+                                      items: controller.allSchedule.map((e) {
+
+                                        //Lista os horários
+                                        return DropdownMenuItem<String>(
+
+                                          value: utilsServices.formatDateTime( e.date ),
+                                          child: Text( utilsServices.formatDateTime( e.date )),
+
+                                        );
+
+                                      }).toList(),
+
+                                      onChanged: (escolha) => setState((){
+
+                                        valorEscolhido = escolha!;
+
+                                        DateTime.parse( valorEscolhido! );
+
+                                      } ),
+                                    );
+                                }
+                            ),
+
+                             */
+
+
+                            GetBuilder<ProductController>(
+                                builder: (controller){
+
+                                  return
+
+                                    DropdownButton<DateTime>(
+                                      hint: const Text('Escolha uma opção'),
+                                      value: valorEscolhido,
+
+                                      items: controller.allSchedule.map((e) {
+
+                                        //Lista os horários
+                                        return DropdownMenuItem<DateTime>(
+
+                                          value: e.date,
+                                          child: Text( utilsServices.formatDateTime( e.date )),
+
+                                        );
+
+                                      }).toList(),
+
+                                      onChanged: (escolha) => setState((){
+
+                                        valorEscolhido = escolha!;
+
+                                        print( valorEscolhido!.toIso8601String() );
+
+                                      } ),
+                                    );
+                                }
+                            ),
+
+
 
 
                             const Text(
@@ -201,31 +307,32 @@ class _ProductScreenState extends State<ProductScreen> {
 
                       //BOTAO
                       ElevatedButton(
-                          onPressed: (){
+                          onPressed: () async{
 
-                            //fechar a tela
-                            Get.back();
+                            bool? result = await showOrderConfirmation();
 
-                            cartController.addItemToCart(item: widget.item);
+                            if( result ?? false ){
 
-                            //abrir o carrinho
-                            navigationController.navigatePageView( NavigationTabs.cart );
+                              //fechar a tela
+                              Get.back();
+                              cartController.addItemToCart(item: widget.item, schedule: valorEscolhido!.toIso8601String() );
+                              //abrir o carrinho
+                              navigationController.navigatePageView( NavigationTabs.cart );
+
+                            }else{
+                              utilsServices.showToast(message: 'Pedido não confirmado');
+                            }
 
                           },
                           child: const Text('Adicionar na agenda'),
                       ),
-
                     ],
-
-
-
                   ),
-
                 ),
               ),
-
             ],
           ),
+
 
           //BOTAO DE VOLTAR
           Positioned(
@@ -248,4 +355,49 @@ class _ProductScreenState extends State<ProductScreen> {
     );
 
   }
+
+  //Esta função vai retornar um tipo Bool nullable
+  Future<bool?> showOrderConfirmation(){
+    return showDialog<bool>(
+      //precisamos do contexto da aplicação, por isso criamos este metodo dentro da Stateful
+      context: context,
+      builder: (context){
+
+
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          title: const Text('Confirmação'),
+          content: Text('Deseja realmente agendar para este dia e horário?'),
+          actions: [
+            TextButton(
+              onPressed: (){
+                //Caso clique em nao retornaremos um false
+                Navigator.of(context).pop(false);
+              },
+              child: const Text('Não'),
+            ),
+
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+              ),
+              onPressed: (){
+                //Caso clique em sim retornaremos um true
+                Navigator.of(context).pop(true);
+              },
+              child: const Text('Sim'),
+            ),
+          ],
+        );
+
+
+
+      },
+    );
+  }
+
 }

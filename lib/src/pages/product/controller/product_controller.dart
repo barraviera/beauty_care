@@ -12,6 +12,7 @@ class ProductController extends GetxController {
   final utilsServices = UtilsServices();
 
 
+
   //recuperar os horarios
   Future<void> getSchedule({required String productId}) async{
 
@@ -25,19 +26,18 @@ class ProductController extends GetxController {
       success: (schedules){
 
         //Adicionamos os horarios recuperados do parse em uma lista do tipo ScheduleModel
-        //allSchedule = schedules;
+        allSchedule = schedules;
 
-
-        //usamos update para quando estamos trabalhando com GetBuilder na interface
-        //update();
-
-        print( schedules );
+        print( allSchedule );
 
       },
       error: (message){
         utilsServices.showToast(message: message, isError: true);
       },
     );
+
+    //usamos update para quando estamos trabalhando com GetBuilder na interface
+    update();
 
   }
 

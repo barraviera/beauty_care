@@ -46,7 +46,7 @@ class CartRepository {
     }
   }
 
-  Future<CartResult<String>> addItemToCart({ required String userId, required String token, required String productId, required int quantity }) async{
+  Future<CartResult<String>> addItemToCart({ required String userId, required String token, required String productId, required int quantity, required String schedule }) async{
 
     final result = await _httpManager.restRequest(
       url: Endpoints.addItemToCart,
@@ -55,6 +55,7 @@ class CartRepository {
         'user': userId,
         'quantity': quantity,
         'productId': productId,
+        'schedule': schedule,
       },
 
       //token do usuario

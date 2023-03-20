@@ -1,5 +1,6 @@
 import 'package:beauty_care/src/models/cart_item_model.dart';
 import 'package:beauty_care/src/models/item_model.dart';
+import 'package:beauty_care/src/models/schedule_model.dart';
 import 'package:beauty_care/src/pages/auth/controller/auth_controller.dart';
 import 'package:beauty_care/src/pages/cart/cart_result/cart_result.dart';
 import 'package:beauty_care/src/pages/cart/repository/cart_repository.dart';
@@ -17,6 +18,7 @@ class CartController extends GetxController{
 
   List<CartItemModel> cartItems = [];
 
+
   @override
   void onInit() {
     super.onInit();
@@ -24,6 +26,8 @@ class CartController extends GetxController{
     //chamar este metodo assim que está classe for instanciada
     getCartItems();
   }
+
+
 
   double cartTotalPrice(){
 
@@ -51,6 +55,7 @@ class CartController extends GetxController{
 
     result.when(
         success: (data){
+
           //Todos os itens do carrinho ja estarão dentro da lista List<CartItemModel> cartItems = [];
           cartItems = data;
           update();
@@ -70,7 +75,7 @@ class CartController extends GetxController{
   }
 
   //metodo para adicionar produto ao carrinho
-  Future<void> addItemToCart({ required ItemModel item, int quantity = 1 }) async{
+  Future<void> addItemToCart({ required ItemModel item, int quantity = 1, required String schedule }) async{
 
     int itemIndex = getItemIndex(item);
 
@@ -85,6 +90,7 @@ class CartController extends GetxController{
         userId: authController.user.id!,
         token: authController.user.token!,
         productId: item.id,
+        schedule: schedule,
         quantity: quantity,
       );
 
@@ -96,6 +102,7 @@ class CartController extends GetxController{
               item: item,
               id: cartItemId,
               quantity: quantity,
+              isConfirmed: false,
             ),
           );
 

@@ -11,6 +11,7 @@ CartItemModel _$CartItemModelFromJson(Map<String, dynamic> json) =>
       item: ItemModel.fromJson(json['product'] as Map<String, dynamic>),
       id: json['id'] as String,
       quantity: json['quantity'] as int,
+      isConfirmed: json['isConfirmed'] as bool,
     );
 
 Map<String, dynamic> _$CartItemModelToJson(CartItemModel instance) =>
@@ -18,4 +19,5 @@ Map<String, dynamic> _$CartItemModelToJson(CartItemModel instance) =>
       'product': instance.item,
       'id': instance.id,
       'quantity': instance.quantity,
+      'isConfirmed': instance.isConfirmed,
     };

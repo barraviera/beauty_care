@@ -1,4 +1,5 @@
 import 'package:beauty_care/src/models/item_model.dart';
+import 'package:beauty_care/src/models/schedule_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'cart_item_model.g.dart';
@@ -11,12 +12,19 @@ class CartItemModel {
   ItemModel item;
   String id;
   int quantity;
+  bool isConfirmed;
+  @JsonKey(name: 'schedule')
+
+
 
   //construtor
   CartItemModel({
     required this.item,
     required this.id,
     required this.quantity,
+    required this.isConfirmed,
+
+
   });
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) => _$CartItemModelFromJson(json);
@@ -28,6 +36,6 @@ class CartItemModel {
 
   @override
   String toString() {
-    return 'CartItemModel{item: $item, id: $id, quantity: $quantity}';
+    return 'CartItemModel{item: $item, id: $id, quantity: $quantity, isConfirmed: $isConfirmed}';
   }
 }

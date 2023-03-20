@@ -87,6 +87,7 @@ List<String> categories = [
 ];
 
 //LISTA DE ITENS DA MINHA AGENDA
+/*
 List<CartItemModel> cartItems = [
 
     CartItemModel(item: unha, quantity: 10, id: 'dsfdsfsdfds'),
@@ -95,3 +96,5 @@ List<CartItemModel> cartItems = [
     CartItemModel(item: depilacao, quantity: 10, id: 'dsfdsfsdfds'),
 
 ];
+
+ */

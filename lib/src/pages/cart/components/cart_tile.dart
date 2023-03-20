@@ -4,6 +4,7 @@ import 'package:beauty_care/src/services/utils_services.dart';
 import 'package:flutter/material.dart';
 
 import '../../../config/custom_colors.dart';
+import 'cart_status_widget.dart';
 
 class CartTile extends StatelessWidget {
 
@@ -31,7 +32,7 @@ class CartTile extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
             ),
             title: const Text('Confirmação'),
-            content: const Text('Deseja realmente remover o item da sua agenda?'),
+            content: const Text('Deseja realmente cancelar o serviço?'),
             actions: [
               TextButton(
                   onPressed: (){
@@ -59,51 +60,100 @@ class CartTile extends StatelessWidget {
     }
 
     return Card(
-      margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
+      //margin: const EdgeInsets.fromLTRB(10, 10, 10, 0),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: BorderRadius.circular(20),
       ),
 
-      child: ListTile(
+      child: Theme(
+        //para que o divisor nao apaeça mais
+        data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+        child: ExpansionTile(
 
-        //IMAGEM
-        leading: Image.network(
-          cartItem.item.imgUrl,
-          height: 60,
-          width: 60,
-        ),
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
 
-        //TITULO
-        title: Text(
-          cartItem.item.title,
-          style: const TextStyle(
-            fontWeight: FontWeight.w500,
+          title: Column(
+            mainAxisSize: MainAxisSize.min,
+            //alinhamos a esquerda
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(cartItem.item.title),
+
+              /*
+              Text(utilsServices.formatDateTime(cartItem.schedule!.date), style: const TextStyle(
+                fontSize: 12,
+                color: Colors.black,
+              ),),
+
+               */
+
+            ],
           ),
+
+          //aplica espaçamento nos filhos
+          childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+
+          children: [
+
+            SizedBox(
+              height: 150,
+
+              child: Row(
+
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+
+                       children: [
+
+                          Text('(14) 98855-7744'),
+                          SizedBox(height: 10,),
+                          Text('Rua Regine Senger Maioral, 1-1110, Jardim Colonial - Bauru'),
+                         SizedBox(height: 20,),
+                      ],
+                    ),
+                  ),
+
+                  //Divisão
+                  VerticalDivider(
+                    color: Colors.grey.shade300,
+                    thickness: 2,
+                    width: 8,
+                  ),
+
+                  //Status
+                  Expanded(
+                    flex: 2,
+                    child: CartStatusWidget( status: cartItem.isConfirmed, ),
+                  ),
+                ],
+
+              ),              
+            ),
+
+
+            //Total
+            Text.rich(
+              TextSpan(
+                style: const TextStyle(
+                  fontSize: 20,
+                ),
+                children: [
+                  const TextSpan(text: 'Total ', style: TextStyle(fontWeight: FontWeight.bold),),
+                  TextSpan(text: utilsServices.priceToCurrency( cartItem.item.price ), style: const TextStyle(fontWeight: FontWeight.bold),),
+                ],
+              ),
+            ),
+
+
+          ],
         ),
-
-        //PREÇO
-        subtitle: Text(
-          utilsServices.priceToCurrency( cartItem.item.price ),
-          style: TextStyle(
-            color: CustomColors.customSwatchColor,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-
-        //BOTAO REMOVER
-        trailing: QuantityWidget(
-          color: Colors.red,
-          icon: Icons.delete_forever,
-          onPressed: () async{
-            bool? result = await showRemoveConfirmation();
-            if(result == true){
-              //remove(cartItem);
-            }
-
-          },
-        ),
-
       ),
+
+
+
     );
 
 

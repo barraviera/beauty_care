@@ -17,7 +17,7 @@ class ProductRepository {
       url: Endpoints.getSchedule,
       method: HttpMethods.post,
       body: {
-        productId: productId,
+        'productId': productId,
       },
     );
 
@@ -26,7 +26,6 @@ class ProductRepository {
 
       //no schedules teremos a nossa lista com todos os produtos vindos do backend
       List<ScheduleModel> schedules = List<Map<String, dynamic>>.from(result['result']).map( ScheduleModel.fromJson ).toList();
-
 
       return ProductResult<List<ScheduleModel>>.success(schedules);
 
