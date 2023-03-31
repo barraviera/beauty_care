@@ -13,7 +13,8 @@ class CartItemModel {
   String id;
   int quantity;
   bool isConfirmed;
-  @JsonKey(name: 'schedule')
+  DateTime schedule;
+  double price;
 
 
 
@@ -23,8 +24,8 @@ class CartItemModel {
     required this.id,
     required this.quantity,
     required this.isConfirmed,
-
-
+    required this.schedule,
+    required this.price,
   });
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) => _$CartItemModelFromJson(json);
@@ -36,6 +37,6 @@ class CartItemModel {
 
   @override
   String toString() {
-    return 'CartItemModel{item: $item, id: $id, quantity: $quantity, isConfirmed: $isConfirmed}';
+    return 'CartItemModel{item: $item, id: $id, quantity: $quantity, isConfirmed: $isConfirmed, schedule: $schedule, price: $price}';
   }
 }

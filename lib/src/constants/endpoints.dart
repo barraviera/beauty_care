@@ -12,5 +12,6 @@ abstract class Endpoints{
   static const String addItemToCart = '$baseUrl/add-item-to-cart'; //adicionar item ao carrinho
   static const String checkout = '$baseUrl/checkout'; //finalizar compra
   static const String getSchedule = '$baseUrl/get-schedule-list'; //listar horarios baseado no id do produto
+  static const String changePassword = '$baseUrl/change-password'; //trocar senha
 
 }

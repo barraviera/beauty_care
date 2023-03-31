@@ -38,6 +38,8 @@ class CartRepository {
       List<CartItemModel> data = List<Map<String, dynamic>>.from( result['result'])
           .map(CartItemModel.fromJson).toList();
 
+      print( data );
+
       return CartResult<List<CartItemModel>>.success(data);
 
     }else{
@@ -46,7 +48,8 @@ class CartRepository {
     }
   }
 
-  Future<CartResult<String>> addItemToCart({ required String userId, required String token, required String productId, required int quantity, required String schedule }) async{
+  Future<CartResult<String>> addItemToCart({ required String userId, required String token, required String productId,
+    required int quantity, required String schedule, required double price, required String scheduleId }) async{
 
     final result = await _httpManager.restRequest(
       url: Endpoints.addItemToCart,
@@ -56,6 +59,8 @@ class CartRepository {
         'quantity': quantity,
         'productId': productId,
         'schedule': schedule,
+        'price': price,
+        'scheduleId': scheduleId,
       },
 
       //token do usuario

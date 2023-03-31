@@ -34,8 +34,10 @@ class _ProductScreenState extends State<ProductScreen> {
   final cartController = Get.find<CartController>();
   final productController = Get.find<ProductController>();
 
-  DateTime? valorEscolhido;
-  //String? valorEscolhido;
+  //DateTime? valorEscolhido;
+  ScheduleModel? valorEscolhido;
+
+  String? scheduleId;
 
   @override
   void initState() {
@@ -153,62 +155,23 @@ class _ProductScreenState extends State<ProductScreen> {
                               ),
                             ),
 
-                            //DROPDOWN HORARIOS
-                            /*
-                            GetBuilder<ProductController>(
-                              builder: (controller){
-
-                                return
-
-                                DropdownButton<DateTime>(
-
-                                  value: (valorEscolhido == null) ? controller.allSchedule.first.date : valorEscolhido,
-
-                                    items: controller.allSchedule.map((e) {
-
-                                    //Lista os horários
-                                    return DropdownMenuItem<DateTime>(
-
-                                      value: e.date,
-                                      child: Text( utilsServices.formatDateTime( e.date )),
-
-                                    );
-
-                                  }).toList(),
-
-                                  onChanged: (escolha) => setState((){
-
-                                    valorEscolhido = escolha;
-
-                                    print( escolha );
-
-                                  } ),
-                                );
 
 
-                              }
-                            ),
-
-                             */
-
-                            //DROPDOWN HORARIOS
                             /*
                             GetBuilder<ProductController>(
                                 builder: (controller){
 
-                                  return
-
-                                    DropdownButton<String>(
+                                  return DropdownButton<DateTime>(
                                       hint: const Text('Escolha uma opção'),
                                       value: valorEscolhido,
 
                                       items: controller.allSchedule.map((e) {
 
                                         //Lista os horários
-                                        return DropdownMenuItem<String>(
+                                        return DropdownMenuItem<DateTime> (
 
-                                          value: utilsServices.formatDateTime( e.date ),
-                                          child: Text( utilsServices.formatDateTime( e.date )),
+                                          value: e.date,
+                                          child: Text(utilsServices.formatDateTime( e.date )),
 
                                         );
 
@@ -217,46 +180,49 @@ class _ProductScreenState extends State<ProductScreen> {
                                       onChanged: (escolha) => setState((){
 
                                         valorEscolhido = escolha!;
-
-                                        DateTime.parse( valorEscolhido! );
 
                                       } ),
                                     );
                                 }
                             ),
+                            */
 
+
+                            /*
+                              AGORA QUE JA CONSEGUIMOS TER O ID DO SCHEDULE, PRECISAMOS CRIAR UMA FORMA DE PASSAR ESSE ID PARA O BACKEND E ALTERAR O ISAVAILABLE
+                              DA TABELA SCHEDULE PARA QUE NAO MOSTRE OS HORARIOS QUE TIVEREM COMO FALSE POIS ALGUEM JA AGENDOU ESTE HORARIO
                              */
-
 
                             GetBuilder<ProductController>(
                                 builder: (controller){
 
-                                  return
+                                  return DropdownButton<ScheduleModel>(
+                                    hint: const Text('Escolha uma opção'),
+                                    value: valorEscolhido,
 
-                                    DropdownButton<DateTime>(
-                                      hint: const Text('Escolha uma opção'),
-                                      value: valorEscolhido,
+                                    items: controller.allSchedule.map((e) {
 
-                                      items: controller.allSchedule.map((e) {
+                                      //Lista os horários
+                                      return DropdownMenuItem<ScheduleModel> (
 
-                                        //Lista os horários
-                                        return DropdownMenuItem<DateTime>(
+                                        value: e,
+                                        child: Text( utilsServices.formatDateTime( e.date )),
 
-                                          value: e.date,
-                                          child: Text( utilsServices.formatDateTime( e.date )),
+                                      );
 
-                                        );
+                                    }).toList(),
 
-                                      }).toList(),
+                                    onChanged: (escolha) => setState((){
 
-                                      onChanged: (escolha) => setState((){
+                                      valorEscolhido = escolha!;
 
-                                        valorEscolhido = escolha!;
+                                      //atribuímos o id do horario escolhido à variavel scheduleId que criamos acima
+                                      scheduleId = valorEscolhido!.id;
 
-                                        print( valorEscolhido!.toIso8601String() );
+                                      print( scheduleId );
 
-                                      } ),
-                                    );
+                                    } ),
+                                  );
                                 }
                             ),
 
@@ -315,7 +281,7 @@ class _ProductScreenState extends State<ProductScreen> {
 
                               //fechar a tela
                               Get.back();
-                              cartController.addItemToCart(item: widget.item, schedule: valorEscolhido!.toIso8601String() );
+                              cartController.addItemToCart(item: widget.item, schedule: valorEscolhido!.date, price: widget.item.price, scheduleId: scheduleId! );
                               //abrir o carrinho
                               navigationController.navigatePageView( NavigationTabs.cart );
 

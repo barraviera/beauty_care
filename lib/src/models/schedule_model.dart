@@ -10,6 +10,7 @@ class ScheduleModel{
   //Atributos
   String id;
   DateTime date;
+  bool? isAvailable;
 
 
 
@@ -17,6 +18,7 @@ class ScheduleModel{
   ScheduleModel({
     required this.id,
     required this.date,
+    this.isAvailable,
   });
 
   factory ScheduleModel.fromJson(Map<String, dynamic> json) => _$ScheduleModelFromJson(json);
@@ -24,6 +26,6 @@ class ScheduleModel{
 
   @override
   String toString() {
-    return 'ScheduleModel{id: $id, date: $date}';
+    return 'ScheduleModel{id: $id, date: $date, isAvailable: $isAvailable}';
   }
 }

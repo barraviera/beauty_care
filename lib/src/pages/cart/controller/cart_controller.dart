@@ -75,7 +75,8 @@ class CartController extends GetxController{
   }
 
   //metodo para adicionar produto ao carrinho
-  Future<void> addItemToCart({ required ItemModel item, int quantity = 1, required String schedule }) async{
+  Future<void> addItemToCart({ required ItemModel item, int quantity = 1, required DateTime schedule,
+    required double price, required String scheduleId }) async{
 
     int itemIndex = getItemIndex(item);
 
@@ -90,8 +91,10 @@ class CartController extends GetxController{
         userId: authController.user.id!,
         token: authController.user.token!,
         productId: item.id,
-        schedule: schedule,
+        schedule: schedule.toIso8601String(),
         quantity: quantity,
+        price: price,
+        scheduleId: scheduleId,
       );
 
       result.when(
@@ -103,6 +106,8 @@ class CartController extends GetxController{
               id: cartItemId,
               quantity: quantity,
               isConfirmed: false,
+              schedule: schedule,
+              price: price,
             ),
           );
 

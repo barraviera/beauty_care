@@ -27,6 +27,31 @@ class AuthRepository{
 
   }
 
+  Future<bool> changePassword({
+    required String email,
+    required String currentPassword,
+    required String newPassword,
+    required String token
+  }) async{
+
+    final result = await _httpManager.restRequest(
+      url: Endpoints.changePassword,
+      method: HttpMethods.post,
+      body: {
+        'email': email,
+        'currentPassword': currentPassword,
+        'newPassword': newPassword
+      },
+
+      headers: {
+        'X-Parse-Session-Token': token,
+      }
+    );
+
+    //se erro for igual a nulo a alteração de senha deu certo
+    return result['error'] == null;
+
+  }
 
 
   //metodo para validacao de token

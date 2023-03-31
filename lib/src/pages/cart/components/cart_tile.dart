@@ -79,13 +79,15 @@ class CartTile extends StatelessWidget {
             children: [
               Text(cartItem.item.title),
 
-              /*
-              Text(utilsServices.formatDateTime(cartItem.schedule!.date), style: const TextStyle(
+
+              Text(utilsServices.formatDateTime(cartItem.schedule!), style: const TextStyle(
                 fontSize: 12,
                 color: Colors.black,
               ),),
 
-               */
+
+
+
 
             ],
           ),
@@ -142,7 +144,7 @@ class CartTile extends StatelessWidget {
                 ),
                 children: [
                   const TextSpan(text: 'Total ', style: TextStyle(fontWeight: FontWeight.bold),),
-                  TextSpan(text: utilsServices.priceToCurrency( cartItem.item.price ), style: const TextStyle(fontWeight: FontWeight.bold),),
+                  TextSpan(text: utilsServices.priceToCurrency( cartItem.price ), style: const TextStyle(fontWeight: FontWeight.bold),),
                 ],
               ),
             ),
