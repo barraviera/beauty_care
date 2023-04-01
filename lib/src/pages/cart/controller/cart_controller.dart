@@ -57,7 +57,11 @@ class CartController extends GetxController{
         success: (data){
 
           //Todos os itens do carrinho ja estarão dentro da lista List<CartItemModel> cartItems = [];
-          cartItems = data;
+          //vamos ordenar os pedidos usando ordenação de cascata data..sort( (a, b) =>  b.createdAt.compareTo(a.createdAt));
+          //onde "a" e "b" são o primeiro e segundo pedido e depois o "a" será o terceiro pedido e o "b" o quarto e assim constantemente
+          //iremos ordenar da data mais atual(createdAt) para a mais antiga(createdAt)
+          //colocamos interrogação ! no createdAt! para indicar que ele não é nulo neste ponto do codigo
+          cartItems = data..sort( (a, b) =>  b.schedule.compareTo(a.schedule));
           update();
 
         },

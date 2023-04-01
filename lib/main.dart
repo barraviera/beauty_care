@@ -2,12 +2,20 @@ import 'package:beauty_care/src/config/custom_colors.dart';
 import 'package:beauty_care/src/pages/auth/controller/auth_controller.dart';
 import 'package:beauty_care/src/pages_routes/app_pages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 void main() {
 
   //para ter certeza que tudo o que precisa ja está inicializado
   WidgetsFlutterBinding.ensureInitialized();
+
+  //definimos que a orientação da tela será somente na vertical
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((_) {
+    runApp(const MyApp());
+  });
 
   //vamos injetar a classe AuthController na memoria do dispositivo para podermos acessa-la de qualquer lugar do app
   Get.put( AuthController() );

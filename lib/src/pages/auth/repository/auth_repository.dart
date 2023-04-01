@@ -1,7 +1,6 @@
-
 import 'package:beauty_care/src/constants/endpoints.dart';
 import 'package:beauty_care/src/models/user_model.dart';
-import 'package:beauty_care/src/pages/auth/repository/auth_errors.dart' as authErrors;
+import 'package:beauty_care/src/pages/auth/repository/auth_errors.dart' as auth_errors;
 import 'package:beauty_care/src/pages/auth/result/auth_result.dart';
 import 'package:beauty_care/src/services/http_manager.dart';
 
@@ -22,7 +21,7 @@ class AuthRepository{
 
     }else{
       //em caso de erro no login
-      return AuthResult.error( authErrors.authErrorsString( result['error'] )  );
+      return AuthResult.error( auth_errors.authErrorsString( result['error'] )  );
     }
 
   }

@@ -15,6 +15,7 @@ class CartItemModel {
   bool isConfirmed;
   DateTime schedule;
   double price;
+  DateTime? createdAt;
 
 
 
@@ -26,6 +27,7 @@ class CartItemModel {
     required this.isConfirmed,
     required this.schedule,
     required this.price,
+    this.createdAt,
   });
 
   factory CartItemModel.fromJson(Map<String, dynamic> json) => _$CartItemModelFromJson(json);
@@ -37,6 +39,6 @@ class CartItemModel {
 
   @override
   String toString() {
-    return 'CartItemModel{item: $item, id: $id, quantity: $quantity, isConfirmed: $isConfirmed, schedule: $schedule, price: $price}';
+    return 'CartItemModel{item: $item, id: $id, quantity: $quantity, isConfirmed: $isConfirmed, schedule: $schedule, price: $price, createdAt: $createdAt}';
   }
 }

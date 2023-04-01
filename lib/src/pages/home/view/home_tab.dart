@@ -1,14 +1,8 @@
 import 'package:beauty_care/src/config/custom_colors.dart';
-
 import 'package:beauty_care/src/pages/home/controller/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
-import 'package:beauty_care/src/config/app_data.dart' as appData;
-
 import '../../common_widgets/custom_shimmer.dart';
-import '../../product/controller/product_controller.dart';
 import 'components/category_tile.dart';
 import 'components/item_tile.dart';
 
