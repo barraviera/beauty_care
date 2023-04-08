@@ -1,6 +1,7 @@
 import 'package:beauty_care/src/pages/auth/view/sign_in_screen.dart';
 import 'package:beauty_care/src/pages/base/base_screen.dart';
 import 'package:beauty_care/src/pages/cart/binding/cart_binding.dart';
+import 'package:beauty_care/src/pages/salon/binding/salon_binding.dart';
 import 'package:get/get.dart';
 import '../pages/auth/view/sign_up_screen.dart';
 import '../pages/base/binding/navigation_binding.dart';
@@ -24,12 +25,13 @@ abstract class AppPages{
     ),
 
     GetPage(
-      page: () => BaseScreen(),
+      page: () => const BaseScreen(),
       name: PagesRoutes.baseRoute,
       bindings: [
         HomeBinding(),
         NavigationBinding(),
         CartBinding(),
+        SalonBinding(),
         //ProductBinding(), nao usa mais
       ],
     ),

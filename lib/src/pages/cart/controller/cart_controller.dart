@@ -4,6 +4,7 @@ import 'package:beauty_care/src/models/schedule_model.dart';
 import 'package:beauty_care/src/pages/auth/controller/auth_controller.dart';
 import 'package:beauty_care/src/pages/cart/cart_result/cart_result.dart';
 import 'package:beauty_care/src/pages/cart/repository/cart_repository.dart';
+import 'package:beauty_care/src/pages/home/view/home_tab.dart';
 import 'package:beauty_care/src/services/utils_services.dart';
 import 'package:get/get.dart';
 
@@ -114,6 +115,8 @@ class CartController extends GetxController{
               price: price,
             ),
           );
+
+
 
         },
         error: (message){

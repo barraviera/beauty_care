@@ -38,7 +38,6 @@ class CartRepository {
       List<CartItemModel> data = List<Map<String, dynamic>>.from( result['result'])
           .map(CartItemModel.fromJson).toList();
 
-      print( data );
 
       return CartResult<List<CartItemModel>>.success(data);
 

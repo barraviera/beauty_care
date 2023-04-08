@@ -23,9 +23,10 @@ class _ProfileTabState extends State<ProfileTab> {
   Widget build(BuildContext context) {
     return Scaffold(
 
+
       appBar: AppBar(
         backgroundColor: CustomColors.customContrastColorBottomBar,
-        title: const Text('Perfil do usuário', style: TextStyle(color: Colors.black),),
+        title: const Text('Perfil do usuário', style: TextStyle(color: Colors.white),),
         actions: [
           IconButton(
             onPressed: (){

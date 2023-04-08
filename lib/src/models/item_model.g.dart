@@ -16,6 +16,7 @@ ItemModel _$ItemModelFromJson(Map<String, dynamic> json) => ItemModel(
       contact: json['contact'] as String,
       salonName: json['salon_name'] as String,
       distance: (json['distance'] as num).toDouble(),
+      status: json['status'] as bool?,
     );
 
 Map<String, dynamic> _$ItemModelToJson(ItemModel instance) => <String, dynamic>{
@@ -28,4 +29,5 @@ Map<String, dynamic> _$ItemModelToJson(ItemModel instance) => <String, dynamic>{
       'contact': instance.contact,
       'salon_name': instance.salonName,
       'distance': instance.distance,
+      'status': instance.status,
     };

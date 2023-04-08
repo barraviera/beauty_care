@@ -17,7 +17,7 @@ class ItemModel {
   @JsonKey(name: 'salon_name')
   String salonName;
   double distance;
-  //bool status;
+  bool? status;
 
   //CONSTRUTOR
   ItemModel({
@@ -30,7 +30,7 @@ class ItemModel {
     required this.contact,
     required this.salonName,
     required this.distance,
-    //this.status = false,
+    this.status,
   });
 
 
@@ -43,7 +43,7 @@ class ItemModel {
 
   @override
   String toString() {
-    return 'ItemModel{id: $id, itemName: $title, imgUrl: $imgUrl, price: $price, description: $description, address: $address, distance: $distance}';
+    return 'ItemModel{id: $id, itemName: $title, imgUrl: $imgUrl, price: $price, description: $description, address: $address, distance: $distance, status: $status}';
   }
 
 

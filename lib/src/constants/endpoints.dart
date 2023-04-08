@@ -13,5 +13,6 @@ abstract class Endpoints{
   static const String checkout = '$baseUrl/checkout'; //finalizar compra
   static const String getSchedule = '$baseUrl/get-schedule-list'; //listar horarios baseado no id do produto
   static const String changePassword = '$baseUrl/change-password'; //trocar senha
+  static const String getAllSalons = '$baseUrl/get-salon-list'; //recuperar todos os saloes
 
 }

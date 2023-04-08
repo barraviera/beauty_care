@@ -1,5 +1,6 @@
 import 'package:beauty_care/src/pages/base/controller/navigation_controller.dart';
 import 'package:beauty_care/src/pages/profile/profile_tab.dart';
+import 'package:beauty_care/src/pages/salon/view/salon_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
@@ -83,12 +84,12 @@ class _BaseScreenState extends State<BaseScreen> {
         //PARA BLOQUEAR O SLIDE LATERAL DAS PAGINAS
         physics: const NeverScrollableScrollPhysics(),
 
-        children: [
+        children: const [
 
-          const HomeTab(),
-          const CartTab(),
-          Container(color: Colors.blue,),
-          const ProfileTab(),
+          HomeTab(),
+          CartTab(),
+          SalonTab(),
+          ProfileTab(),
 
         ],
 

@@ -285,6 +285,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               //abrir o carrinho
                               navigationController.navigatePageView( NavigationTabs.cart );
 
+
                             }else{
                               utilsServices.showToast(message: 'Pedido não confirmado');
                             }

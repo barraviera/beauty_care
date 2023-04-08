@@ -18,6 +18,7 @@ class HomeTab extends StatefulWidget {
 
   @override
   State<HomeTab> createState() => _HomeTabState();
+
 }
 
 class _HomeTabState extends State<HomeTab> {
@@ -147,7 +148,7 @@ class _HomeTabState extends State<HomeTab> {
 
               return Expanded(
                 child: !controller.isProductLoading ?
-                
+
                 Visibility(
 
                   //se o currentCategory for nulo vamos dizer que temos uma lista vazia
@@ -161,17 +162,17 @@ class _HomeTabState extends State<HomeTab> {
                       const Text('Não há itens para apresentar'),
                     ],
                   ),
-                  
+
                   child: GridView.builder(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                    physics: BouncingScrollPhysics(),
+                    physics: AlwaysScrollableScrollPhysics(),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
                       crossAxisSpacing: 10,
                       childAspectRatio: 9 / 11.5,
                     ),
-                    //CHAMAMOS A LISTA DE ITENS QUE CRIAMOS EM APP_DATA
+                    //CHAMAMOS A LISTA DE ITENS
                     itemCount: controller.allProducts.length,
                     itemBuilder: (_, index){
 
@@ -189,14 +190,14 @@ class _HomeTabState extends State<HomeTab> {
 
                       return ItemTile(
                         item: controller.allProducts[index],
-                      ); Container();
+                      );
 
                     },
                   ),
                 )
 
-                
-                
+
+
                 : GridView.count(
                   padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                   physics: const BouncingScrollPhysics(),

@@ -1,6 +1,7 @@
 import 'package:beauty_care/src/pages/cart/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../config/custom_colors.dart';
 import '../../../services/utils_services.dart';
 import '../components/cart_tile.dart';
 
@@ -19,8 +20,20 @@ class _CartTabState extends State<CartTab> {
   Widget build(BuildContext context) {
     return Scaffold(
 
+      //APPBAR
       appBar: AppBar(
-        title: const Text('Agenda'),
+        backgroundColor: CustomColors.customContrastColorBottomBar,
+        //PARA REMOVER A SOMBRA
+        elevation: 0,
+        centerTitle: true,
+        title: const Text.rich(
+          TextSpan(
+            style: TextStyle(fontSize: 22,),
+            children: [
+              TextSpan(text: 'Agenda', style: TextStyle(color: Colors.white)),
+            ],
+          ),
+        ),
       ),
 
       body: GetBuilder<CartController>(

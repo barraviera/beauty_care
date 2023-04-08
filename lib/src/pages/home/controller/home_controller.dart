@@ -67,7 +67,9 @@ class HomeController extends GetxController {
     );
 
     getAllCategories();
+
   }
+
 
   void selectCategory(CategoryModel category){
 
@@ -217,6 +219,8 @@ class HomeController extends GetxController {
         //recuperar a categoria selecionada
         //addAll para caso a gente ja tenha algo nesta lista de items iremos só adicionar a ela
         currentCategory!.items.addAll(data);
+
+        print( data );
 
       },
       error: (message){
