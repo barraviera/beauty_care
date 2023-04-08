@@ -58,6 +58,8 @@ class _SalonTabState extends State<SalonTab> {
                     //no onChange conseguimos pegar o texto digitado no campo de pesquisa
                     onChanged: (value){
 
+                      //vamos pegar o que foi digitado e enviar para a variavel observavel searchTile
+                      //que declaramos em salon_controller
                       controller.searchTile.value = value;
 
                     },
@@ -73,7 +75,8 @@ class _SalonTabState extends State<SalonTab> {
 
                       //caso tenha texto no campo de pesquisa iremos mostrar um icon, senao nao mostraremos nada
                       suffixIcon: controller.searchTile.value.isNotEmpty
-                          ? IconButton(
+                          ?
+                      IconButton(
                         onPressed: (){
 
                           //remover tudo que tem escrito no campo de pesquisa
@@ -105,38 +108,73 @@ class _SalonTabState extends State<SalonTab> {
 
               return Expanded(
 
-                child: GridView.builder(
-                  padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-                  physics: const BouncingScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                child: !controller.isLoading ?
+
+                Visibility(
+                  visible: (controller.allSalons).isNotEmpty,
+
+                  child: GridView.builder(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    physics: const BouncingScrollPhysics(),
+                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2,
+                      mainAxisSpacing: 10,
+                      crossAxisSpacing: 10,
+                      childAspectRatio: 9 / 11.5,
+                    ),
+                    //CHAMAMOS A LISTA DE ITENS
+                    itemCount: controller.allSalons.length,
+                    itemBuilder: (_, index){
+
+                      //se o index + 1 for igual a quantidade apresentada em allSalons quer dizer
+                      //que ja estamos apresentando o ultimo item na nossa lista
+                      //obs. o index vai começar de 0 a 5, dando 6 itens
+                      //entao 5(ultimo item) + 1 = 6 que bateria com o total da lista allSalons.length
+
+                      //!controller.isLastPage se nao estivermos na ultima pagina
+                      if((index + 1 == controller.allSalons.length) && !controller.isLastPage){
+
+                        //chamamos o metodo para carregar mais saloes
+                        controller.loadMoreSalons();
+
+                      }
+
+                      return ItemSalonTile(
+                        itemSalonModel: controller.allSalons[index],
+                      );
+
+
+                    },
+                  ),
+
+                  replacement: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.search_off, size: 40, color: CustomColors.customSwatchColor,),
+                      const Text('Não há itens para apresentar'),
+                    ],
+                  ),
+
+                )
+
+
+                : GridView.count(
+                    padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                    physics: const BouncingScrollPhysics(),
                     crossAxisCount: 2,
                     mainAxisSpacing: 10,
                     crossAxisSpacing: 10,
                     childAspectRatio: 9 / 11.5,
+                    children: List.generate(
+                      10,
+                          (index) => CustomShimmer(
+                        height: double.infinity,
+                        width: double.infinity,
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                    ),
                   ),
-                  //CHAMAMOS A LISTA DE ITENS
-                  itemCount: controller.allSalons.length,
-                  itemBuilder: (_, index){
 
-                    //se o index + 1 for igual a quantidade apresentada em allSalons quer dizer
-                    //que ja estamos apresentando o ultimo item na nossa lista
-                    //obs. o index vai começar de 0 a 5, dando 6 itens
-                    //entao 5(ultimo item) + 1 = 6 que bateria com o total da lista allSalons.length
-
-                    //!controller.isLastPage se nao estivermos na ultima pagina
-                    if((index + 1 == controller.allSalons.length) && !controller.isLastPage){
-
-                      //chamamos o metodo para carregar mais saloes
-                      controller.loadMoreSalons();
-
-                    }
-
-                    return ItemSalonTile(
-                      itemSalonModel: controller.allSalons[index],
-                    );
-
-                  },
-                ),
 
 
               );

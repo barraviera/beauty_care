@@ -14,7 +14,6 @@ class SalonController extends GetxController {
   //variavel observavel para campo de pesquisa
   RxString searchTile = ''.obs;
   bool isLoading = false;
-  bool isSalonLoading = true;
   List<ItemSalonModel> allSalons = [];
   int pagination = 0;
 
@@ -29,9 +28,18 @@ class SalonController extends GetxController {
 
   }
 
+  //onInit é iniciado sempre quando instaciamos a nossa classe controladora salon_controller.dart
   @override
   void onInit(){
     super.onInit();
+
+    //o debounce vai ficar monitorando a variavel observavel searchTile
+    //e fazer uma ação a respeito
+    debounce(searchTile, (_) => filterByTitle(),
+
+      //apos recebermos um valor no searchTile podemos indicar um tempo para a ação começar
+      time: const Duration(milliseconds: 600),
+    );
 
     getAllSalons();
 
@@ -46,17 +54,26 @@ class SalonController extends GetxController {
     update();
   }
 
+  //metodo para carregar mais saloes
   void loadMoreSalons(){
 
     pagination++;
-
     getAllSalons(canLoad: false);
+  }
 
+  //filtrar por titulo do salao
+  void filterByTitle(){
+
+    allSalons.clear();
+    pagination = 0;
+
+    update();
+    getAllSalons();
   }
 
 
   //recuperar todos os produtos
-  Future<void> getAllSalons({String? title, bool canLoad = true}) async{
+  Future<void> getAllSalons({bool canLoad = true}) async{
 
     if(canLoad){
 
@@ -68,8 +85,14 @@ class SalonController extends GetxController {
     Map<String, dynamic> body = {
       'page': pagination,
       'itemsPerPage': itemsPerPage,
-      'title': title,
     };
+
+    //se a variavel searchTile nao estiver vazia iremos adicionar a chave title no body
+    if(searchTile.value.isNotEmpty){
+
+      body['title'] = searchTile.value;
+
+    }
 
     SalonResult<ItemSalonModel> result = await salonRepository.getAllSalons(body);
 
