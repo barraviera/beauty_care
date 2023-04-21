@@ -113,6 +113,14 @@ class _SalonTabState extends State<SalonTab> {
                 Visibility(
                   visible: (controller.allSalons).isNotEmpty,
 
+                  replacement: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(Icons.search_off, size: 40, color: CustomColors.customSwatchColor,),
+                      const Text('Não há itens para apresentar'),
+                    ],
+                  ),
+
                   child: GridView.builder(
                     padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                     physics: const BouncingScrollPhysics(),
@@ -145,14 +153,6 @@ class _SalonTabState extends State<SalonTab> {
 
 
                     },
-                  ),
-
-                  replacement: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.search_off, size: 40, color: CustomColors.customSwatchColor,),
-                      const Text('Não há itens para apresentar'),
-                    ],
                   ),
 
                 )

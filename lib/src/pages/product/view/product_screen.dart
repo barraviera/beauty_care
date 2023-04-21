@@ -23,6 +23,7 @@ class ProductScreen extends StatefulWidget {
 
 
 
+
   @override
   State<ProductScreen> createState() => _ProductScreenState();
 }
@@ -38,6 +39,7 @@ class _ProductScreenState extends State<ProductScreen> {
   ScheduleModel? valorEscolhido;
 
   String? scheduleId;
+
 
   @override
   void initState() {
@@ -157,36 +159,6 @@ class _ProductScreenState extends State<ProductScreen> {
 
 
 
-                            /*
-                            GetBuilder<ProductController>(
-                                builder: (controller){
-
-                                  return DropdownButton<DateTime>(
-                                      hint: const Text('Escolha uma opção'),
-                                      value: valorEscolhido,
-
-                                      items: controller.allSchedule.map((e) {
-
-                                        //Lista os horários
-                                        return DropdownMenuItem<DateTime> (
-
-                                          value: e.date,
-                                          child: Text(utilsServices.formatDateTime( e.date )),
-
-                                        );
-
-                                      }).toList(),
-
-                                      onChanged: (escolha) => setState((){
-
-                                        valorEscolhido = escolha!;
-
-                                      } ),
-                                    );
-                                }
-                            ),
-                            */
-
 
                             /*
                               AGORA QUE JA CONSEGUIMOS TER O ID DO SCHEDULE, PRECISAMOS CRIAR UMA FORMA DE PASSAR ESSE ID PARA O BACKEND E ALTERAR O ISAVAILABLE
@@ -197,8 +169,10 @@ class _ProductScreenState extends State<ProductScreen> {
                                 builder: (controller){
 
                                   return DropdownButton<ScheduleModel>(
-                                    hint: const Text('Escolha uma opção'),
+                                    //hint: const Text('Escolha uma opção'),
+                                    hint: (controller.allSchedule.isEmpty) ? const Text('Sem horário disponível') : const Text('Escolha uma opção'),
                                     value: valorEscolhido,
+
 
                                     items: controller.allSchedule.map((e) {
 
@@ -219,7 +193,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                       //atribuímos o id do horario escolhido à variavel scheduleId que criamos acima
                                       scheduleId = valorEscolhido!.id;
 
-                                      print( scheduleId );
+                                      print( controller.allSchedule );
 
                                     } ),
                                   );
@@ -255,7 +229,7 @@ class _ProductScreenState extends State<ProductScreen> {
                               children: [
 
                                 Text(
-                                  widget.item.description * 3,
+                                  widget.item.description * 6,
                                   style: const TextStyle(
                                     height: 1.5,
                                   ),
@@ -270,29 +244,36 @@ class _ProductScreenState extends State<ProductScreen> {
 
 
 
-
                       //BOTAO
-                      ElevatedButton(
-                          onPressed: () async{
+                    GetBuilder<ProductController>(
+                      builder: (controller) {
 
-                            bool? result = await showOrderConfirmation();
-
-                            if( result ?? false ){
-
-                              //fechar a tela
-                              Get.back();
-                              cartController.addItemToCart(item: widget.item, schedule: valorEscolhido!.date, price: widget.item.price, scheduleId: scheduleId! );
-                              //abrir o carrinho
-                              navigationController.navigatePageView( NavigationTabs.cart );
+                        return ElevatedButton(
+                                  onPressed: (controller.allSchedule.isEmpty) ? null : () async{
 
 
-                            }else{
-                              utilsServices.showToast(message: 'Pedido não confirmado');
-                            }
+                                    bool? result = await showOrderConfirmation();
 
-                          },
-                          child: const Text('Adicionar na agenda'),
-                      ),
+                                    if( result ?? false ){
+
+                                      //fechar a tela
+                                      Get.back();
+                                      cartController.addItemToCart(item: widget.item, schedule: valorEscolhido!.date, price: widget.item.price, scheduleId: scheduleId! );
+                                      //abrir o carrinho
+                                      navigationController.navigatePageView( NavigationTabs.cart );
+
+
+                                    }else{
+                                      utilsServices.showToast(message: 'Pedido não confirmado');
+                                    }
+
+                                  },
+                                  child: const Text('Adicionar na agenda'),
+                              );
+                      }
+                    )
+
+
                     ],
                   ),
                 ),

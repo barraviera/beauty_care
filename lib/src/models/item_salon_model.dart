@@ -15,6 +15,7 @@ class ItemSalonModel {
   @JsonKey(name: 'picture')
   String imgUrl;
   double distance;
+  String description;
 
   //construtor
   ItemSalonModel({
@@ -27,6 +28,7 @@ class ItemSalonModel {
     required this.phone,
     required this.imgUrl,
     required this.distance,
+    required this.description,
   });
 
 
@@ -36,7 +38,7 @@ class ItemSalonModel {
 
   @override
   String toString() {
-    return 'ItemSalonModel{id: $id, title: $title, address: $address, district: $district, number: $number, city: $city, phone: $phone, imgUrl: $imgUrl, distance: $distance}';
+    return 'ItemSalonModel{id: $id, title: $title, address: $address, district: $district, number: $number, city: $city, phone: $phone, imgUrl: $imgUrl, distance: $distance, description: $description}';
   }
 
 //apos criar criar essas linhas vamos rodar no terminal:

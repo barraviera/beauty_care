@@ -17,6 +17,7 @@ ItemSalonModel _$ItemSalonModelFromJson(Map<String, dynamic> json) =>
       phone: json['phone'] as String,
       imgUrl: json['picture'] as String,
       distance: (json['distance'] as num).toDouble(),
+      description: json['description'] as String,
     );
 
 Map<String, dynamic> _$ItemSalonModelToJson(ItemSalonModel instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$ItemSalonModelToJson(ItemSalonModel instance) =>
       'phone': instance.phone,
       'picture': instance.imgUrl,
       'distance': instance.distance,
+      'description': instance.description,
     };
